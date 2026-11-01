@@ -117,9 +117,9 @@ let memoryDeck=[],memoryOpen=[],memoryMatched=[];
 function renderAdventure(){
  activeTab="adventure";setTabs();
  const animals=["🐼","🐰","🦊","🐸","🐻","🐱"];
- $("#content").innerHTML='<section class="panel"><h2>🎒 모험 놀이터</h2><div class="adventure-grid"><button class="adventure-card" id="mem">🃏<b>국기 기억력 게임</b><small>국기와 나라 이름 짝 맞추기</small></button><button class="adventure-card" id="stages">🚀<b>대륙별 여행</b><small>대륙별 나라 탐험</small></button><button class="adventure-card" id="awards">🏆<b>업적과 트로피</b><small>새로운 목표 달성</small></button><button class="adventure-card" id="stories">📚<b>나라 이야기</b><small>재미있는 나라 정보</small></button></div><h3>🐾 탐험대 친구</h3><div>'+animals.map(x=>'<button class="mascot-choice '+(x===mascot?'active':'')+'" data-mascot="'+x+'">'+x+'</button>').join("")+'</div><div class="fact">안녕! 나랑 함께 세계 곳곳을 탐험해 보자!</div></section>';
+ $("#content").innerHTML='<section class="panel"><h2>🎒 모험 놀이터</h2><div class="adventure-grid"><button class="adventure-card" id="mem">🃏<b>국기 기억력 게임</b><small>국기와 나라 이름 짝 맞추기</small></button><button class="adventure-card" id="stages">🚀<b>대륙별 여행</b><small>대륙별 나라 탐험</small></button><button class="adventure-card" id="awards">🏆<b>업적과 트로피</b><small>새로운 목표 달성</small></button><button class="adventure-card" id="stories">📚<b>나라 이야기</b><small>재미있는 나라 정보</small></button></div><h3>🐾 탐험대 친구</h3><div>'+animals.map(x=>'<button class="mascot-choice '+(x===mascot?'active':'')+'" data-mascot="'+x+'">'+x+'</button>').join("")+'</div><button class="primary" id="musicToggle">🎵 배경음악 켜기 / 끄기</button><div class="fact">안녕! 나랑 함께 세계 곳곳을 탐험해 보자!</div></section>';
  document.querySelectorAll("[data-mascot]").forEach(b=>b.onclick=()=>{mascot=b.dataset.mascot;localStorage.setItem("littleWorldMascot",mascot);renderAdventure()});
- $("#mem").onclick=renderMemoryGame;$("#stages").onclick=renderStages;$("#awards").onclick=renderAwards;$("#stories").onclick=renderStories;
+ $("#mem").onclick=renderMemoryGame;$("#stages").onclick=renderStages;$("#awards").onclick=renderAwards;$("#stories").onclick=renderStories;$("#musicToggle").onclick=toggleAdventureMusic;
 }
 function renderMemoryGame(){
  activeTab="adventure";setTabs();const chosen=shuffle(countries).slice(0,6);
@@ -149,6 +149,7 @@ function renderStories(){
  document.querySelectorAll("[data-story]").forEach(b=>b.onclick=()=>showCountry(+b.dataset.story));$("#storyBack").onclick=renderAdventure;
 }
 
+let adventureMusicOn=false,adventureMusicOsc=[];function toggleAdventureMusic(){if(adventureMusicOn){adventureMusicOsc.forEach(o=>{try{o.stop()}catch(e){}});adventureMusicOsc=[];adventureMusicOn=false}else{try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();[261.6,329.6,392].forEach((hz,i)=>{let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=i===0?.008:.004;o.connect(g);g.connect(audioCtx.destination);o.start();adventureMusicOsc.push(o)});adventureMusicOn=true}catch(e){}}$("#musicToggle").textContent=adventureMusicOn?"🔇 배경음악 끄기":"🎵 배경음악 켜기"}
 function setTabs(){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab))}
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{if(b.dataset.tab==="quiz")pickQuestion();if(b.dataset.tab==="map")renderMap();if(b.dataset.tab==="collection")renderCollection();if(b.dataset.tab==="adventure")renderAdventure()});
 loadProgress();pickQuestion();setSoundButton();$("#soundToggle").onclick=()=>{soundOn=!soundOn;try{localStorage.setItem("littleWorldSound",soundOn?"on":"off")}catch(e){}setSoundButton();if(soundOn)playTone("good")};
