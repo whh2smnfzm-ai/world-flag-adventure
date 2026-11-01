@@ -43,6 +43,59 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .memory-card{min-height:78px;border-radius:14px;background:#f2edff;border:2px solid #e3daf8;font-size:23px;font-weight:900}
 .memory-card.open,.memory-card.matched{background:#e9faf1;border-color:#9cddc8}
 .world-dot{cursor:pointer;pointer-events:all}
+
+/* 모바일 화면 글자와 터치 영역 균형 */
+button{ -webkit-tap-highlight-color:transparent; }
+.tab,.answer,.tool-chip,.primary,.audio-toggle,.mascot-choice,.adventure-card,.stage-row button,.continent,.country-item{word-break:keep-all;overflow-wrap:normal}
+@media(max-width:430px){
+ .app{padding:12px 12px calc(88px + env(safe-area-inset-bottom))}
+ header{display:grid;grid-template-columns:1fr;gap:9px;padding:5px 1px 12px}
+ .brand{font-size:17px;gap:8px;min-width:0}
+ .brand span{white-space:nowrap;letter-spacing:-.5px}
+ .logo{width:39px;height:39px;flex:0 0 39px;font-size:22px}
+ header>div:last-child{justify-content:flex-end!important;gap:7px!important}
+ .audio-toggle{font-size:12px;padding:8px 10px;white-space:nowrap}
+ .score{font-size:14px;padding:8px 11px;white-space:nowrap}
+ .hero{padding:19px 16px;min-height:142px;border-radius:24px}
+ .hero h1{font-size:23px;line-height:1.3;max-width:80%}
+ .hero p{font-size:14px;line-height:1.55;max-width:78%}
+ .hero .globe{font-size:76px;right:7px;bottom:-2px}
+ .tabs{gap:6px;margin:13px 0}
+ .tab{min-width:0;min-height:62px;padding:9px 3px;font-size:12px;line-height:1.3;border-radius:14px}
+ .tab.active{border-width:2px}
+ .panel{padding:15px;border-radius:21px}
+ .section-head{align-items:center;gap:6px}
+ .section-head h2{font-size:17px;line-height:1.3}
+ .pill{font-size:11px;padding:6px 8px;white-space:nowrap}
+ .question{font-size:19px;line-height:1.45;margin:8px 0 13px}
+ .quiz-tools{gap:6px}
+ .tool-chip{font-size:12px;padding:8px 10px;min-height:36px}
+ .answers{gap:9px}
+ .answer{font-size:15px;min-height:62px;padding:12px 7px;border-radius:15px}
+ .answer.flag-choice{min-height:104px;font-size:52px}
+ .primary{font-size:15px;min-height:46px;padding:12px 16px;border-radius:14px}
+ .adventure-grid{gap:8px}
+ .adventure-card{min-height:84px;padding:11px;font-size:14px}
+ .adventure-card b{font-size:14px;line-height:1.35}
+ .adventure-card small{font-size:11px;line-height:1.4}
+ .mascot-choice{font-size:23px;padding:8px}
+ .stage-row{font-size:14px;padding:10px}
+ .country-item{font-size:13px;padding:9px}
+ .info span{font-size:13px}
+ .country-title h3{font-size:19px}
+ .flag-big{font-size:76px}
+ .memory-card{font-size:20px;min-height:72px}
+}
+@media(max-width:360px){
+ .brand{font-size:15px}
+ .audio-toggle{font-size:11px;padding:7px 8px}
+ .score{font-size:12px;padding:7px 9px}
+ .tab{font-size:11px}
+ .hero h1{font-size:21px}
+ .hero p{font-size:13px}
+ .section-head h2{font-size:16px}
+ .tool-chip{font-size:11px;padding:7px 8px}
+}
 </style>
 </head>
 <body>
