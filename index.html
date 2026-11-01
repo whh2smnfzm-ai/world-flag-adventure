@@ -173,6 +173,21 @@ body[data-screen="quiz"] .tab.active{box-shadow:0 5px 13px rgba(238,117,151,.16)
 @keyframes mascotFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
 @keyframes mascotDance{from{transform:rotate(-18deg) translateY(-2px) scale(1.03)}to{transform:rotate(18deg) translateY(-7px) scale(1.08)}}
 @media(max-width:360px){.avatar-studio{grid-template-columns:105px 1fr;gap:8px}.avatar-stage{min-height:145px}.avatar-controls{gap:5px}}
+
+/* 화면별 스크롤: 퀴즈는 고정, 긴 학습 화면은 내용 영역에서 스크롤 */
+@media(max-width:780px){
+ body:not([data-screen="quiz"]) #content{
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  padding-bottom:12px;
+ }
+ body:not([data-screen="quiz"]) #content>.panel{
+  height:auto;min-height:100%;overflow:visible;
+  display:block;flex:none;margin:0 0 12px;
+ }
+ body:not([data-screen="quiz"]) #content>.panel:last-child{margin-bottom:0}
+}
 </style>
 </head>
 <body>
