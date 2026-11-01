@@ -157,6 +157,22 @@ body[data-screen="quiz"] .tab.active{box-shadow:0 5px 13px rgba(238,117,151,.16)
 @keyframes celebratePop{from{transform:scale(.65)}to{transform:scale(1)}}@keyframes celebrateFade{0%,75%{opacity:1}100%{opacity:0}}
 .mission-progress{height:12px;background:#f2e9df;border-radius:20px;overflow:hidden;margin:10px 0 15px}.mission-progress div{height:100%;background:linear-gradient(90deg,#ffb2c4,#9bdac5);border-radius:20px}
 .voice-button{display:block;margin:8px auto}
+
+.avatar-studio{display:grid;grid-template-columns:minmax(112px,.85fr) 1.15fr;gap:12px;align-items:stretch;margin:10px 0 15px}
+.avatar-stage{position:relative;min-height:155px;border-radius:22px;background:linear-gradient(145deg,#ffe3d6,#fff1c9 55%,#d8f2e7);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border:1px solid #fff;box-shadow:inset 0 0 0 1px #ffffff80}
+.avatar-spark{position:absolute;top:10px;color:#e8ad5c;letter-spacing:7px;font-size:15px}
+.avatar-accessory{height:27px;font-size:25px;z-index:2;margin-bottom:-2px;filter:drop-shadow(0 2px 2px #796c5233)}
+.avatar-character{font-size:clamp(54px,16vw,76px);line-height:1.1;animation:mascotFloat 2.2s ease-in-out infinite;filter:drop-shadow(0 5px 3px #66554422)}
+.avatar-character.dancing{animation:mascotDance .48s ease-in-out infinite alternate}
+.avatar-name{font-size:11px;font-weight:800;color:#77677d;margin-top:7px}
+.avatar-controls{display:flex;flex-direction:column;justify-content:center;gap:7px;font-size:13px}
+.avatar-picker{display:flex;flex-wrap:wrap;gap:5px}
+.avatar-picker .mascot-choice{font-size:23px;padding:5px 8px;min-width:38px}
+.avatar-equipped{font-size:11px;color:#766b7d;background:#f7f0f8;border-radius:10px;padding:7px}
+.avatar-controls .tool-chip{width:100%;font-size:11px;padding:8px}
+@keyframes mascotFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+@keyframes mascotDance{from{transform:rotate(-18deg) translateY(-2px) scale(1.03)}to{transform:rotate(18deg) translateY(-7px) scale(1.08)}}
+@media(max-width:360px){.avatar-studio{grid-template-columns:105px 1fr;gap:8px}.avatar-stage{min-height:145px}.avatar-controls{gap:5px}}
 </style>
 </head>
 <body>
@@ -236,8 +252,9 @@ let memoryDeck=[],memoryOpen=[],memoryMatched=[];
 function renderAdventure(){
  activeTab="adventure";setTabs();
  const animals=["🐼","🐰","🦊","🐸","🐻","🐱"];
- $("#content").innerHTML='<section class="panel"><h2>🎒 모험 놀이터</h2><div class="adventure-grid"><button class="adventure-card" id="mem">🃏<b>국기 기억력 게임</b><small>국기와 나라 이름 짝 맞추기</small></button><button class="adventure-card" id="stages">🚀<b>대륙별 여행</b><small>대륙별 나라 탐험</small></button><button class="adventure-card" id="awards">🏆<b>업적과 트로피</b><small>새로운 목표 달성</small></button><button class="adventure-card" id="stories">📚<b>나라 이야기</b><small>재미있는 나라 정보</small></button><button class="adventure-card" id="shop">🛍️<b>별빛 보상 상점</b><small>모은 별로 꾸미기 아이템</small></button><button class="adventure-card" id="daily">🎁<b>오늘의 미션</b><small>5문제 정답 후 보상 받기</small></button></div><h3>🐾 탐험대 친구</h3><div>'+animals.map(x=>'<button class="mascot-choice '+(x===mascot?'active':'')+'" data-mascot="'+x+'">'+x+'</button>').join("")+'</div><button class="primary" id="musicToggle">🎵 배경음악 켜기 / 끄기</button><div class="fact">안녕! 나랑 함께 세계 곳곳을 탐험해 보자!</div></section>';
- document.querySelectorAll("[data-mascot]").forEach(b=>b.onclick=()=>{mascot=b.dataset.mascot;localStorage.setItem("littleWorldMascot",mascot);renderAdventure()});
+ const worn=shopItems.find(x=>x.id===equippedItem)||shopItems[0];
+ $("#content").innerHTML='<section class="panel"><h2>🎒 모험 놀이터</h2><div class="avatar-studio"><div class="avatar-stage"><span class="avatar-spark">✦ ✧ ✦</span><div class="avatar-accessory">'+(worn.id==="plain"?"":worn.icon)+'</div><div class="avatar-character">'+mascot+'</div><div class="avatar-name">나의 탐험대 친구</div></div><div class="avatar-controls"><b>🐾 친구 선택</b><div class="avatar-picker">'+animals.map(x=>'<button class="mascot-choice '+(x===mascot?'active':'')+'" data-mascot="'+x+'">'+x+'</button>').join("")+'</div><div class="avatar-equipped">착용 아이템: '+worn.name+'</div><button class="tool-chip" id="avatarDance">💃 친구 춤추게 하기</button><button class="tool-chip" id="avatarShop">🎀 꾸미기 아이템 더 보기</button></div></div><div class="adventure-grid"><div class="adventure-grid"><button class="adventure-card" id="mem">🃏<b>국기 기억력 게임</b><small>국기와 나라 이름 짝 맞추기</small></button><button class="adventure-card" id="stages">🚀<b>대륙별 여행</b><small>대륙별 나라 탐험</small></button><button class="adventure-card" id="awards">🏆<b>업적과 트로피</b><small>새로운 목표 달성</small></button><button class="adventure-card" id="stories">📚<b>나라 이야기</b><small>재미있는 나라 정보</small></button><button class="adventure-card" id="shop">🛍️<b>별빛 보상 상점</b><small>모은 별로 꾸미기 아이템</small></button><button class="adventure-card" id="daily">🎁<b>오늘의 미션</b><small>5문제 정답 후 보상 받기</small></button></div><button class="primary" id="musicToggle">🎵 배경음악 켜기 / 끄기</button><div class="fact">안녕! 나랑 함께 세계 곳곳을 탐험해 보자!</div></section>';
+ document.querySelectorAll("[data-mascot]").forEach(b=>b.onclick=()=>{mascot=b.dataset.mascot;localStorage.setItem("littleWorldMascot",mascot);renderAdventure()});$("#avatarDance").onclick=()=>{$(".avatar-character").classList.toggle("dancing");$("#avatarDance").textContent=$(".avatar-character").classList.contains("dancing")?"🛑 춤 멈추기":"💃 친구 춤추게 하기"};$("#avatarShop").onclick=renderShop;
  $("#mem").onclick=renderMemoryGame;$("#stages").onclick=renderStages;$("#awards").onclick=renderAwards;$("#stories").onclick=renderStories;$("#shop").onclick=renderShop;$("#daily").onclick=renderDailyMission;$("#musicToggle").onclick=toggleAdventureMusic;
 }
 
