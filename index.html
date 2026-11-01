@@ -42,6 +42,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .memory-card{min-height:78px;border-radius:14px;background:#f2edff;border:2px solid #e3daf8;font-size:23px;font-weight:900}
 .memory-card.open,.memory-card.matched{background:#e9faf1;border-color:#9cddc8}
+.world-dot{cursor:pointer;pointer-events:all}
 </style>
 </head>
 <body>
@@ -149,7 +150,7 @@ function renderStories(){
  document.querySelectorAll("[data-story]").forEach(b=>b.onclick=()=>showCountry(+b.dataset.story));$("#storyBack").onclick=renderAdventure;
 }
 
-let adventureMusicOn=false,adventureMusicOsc=[];function toggleAdventureMusic(){if(adventureMusicOn){adventureMusicOsc.forEach(o=>{try{o.stop()}catch(e){}});adventureMusicOsc=[];adventureMusicOn=false}else{try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();[261.6,329.6,392].forEach((hz,i)=>{let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=i===0?.008:.004;o.connect(g);g.connect(audioCtx.destination);o.start();adventureMusicOsc.push(o)});adventureMusicOn=true}catch(e){}}$("#musicToggle").textContent=adventureMusicOn?"🔇 배경음악 끄기":"🎵 배경음악 켜기"}
+let adventureMusicOn=false,adventureMusicOsc=[];function toggleAdventureMusic(){if(adventureMusicOn){adventureMusicOsc.forEach(o=>{try{o.stop()}catch(e){}});adventureMusicOsc=[];adventureMusicOn=false}else{try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();[261.6,329.6,392].forEach((hz,i)=>{let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=i===0 ? 0.008 : 0.004;o.connect(g);g.connect(audioCtx.destination);o.start();adventureMusicOsc.push(o)});adventureMusicOn=true}catch(e){}}$("#musicToggle").textContent=adventureMusicOn?"🔇 배경음악 끄기":"🎵 배경음악 켜기"}
 function setTabs(){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab))}
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{if(b.dataset.tab==="quiz")pickQuestion();if(b.dataset.tab==="map")renderMap();if(b.dataset.tab==="collection")renderCollection();if(b.dataset.tab==="adventure")renderAdventure()});
 loadProgress();pickQuestion();setSoundButton();$("#soundToggle").onclick=()=>{soundOn=!soundOn;try{localStorage.setItem("littleWorldSound",soundOn?"on":"off")}catch(e){}setSoundButton();if(soundOn)playTone("good")};
