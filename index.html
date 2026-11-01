@@ -18,7 +18,7 @@
 button{font:inherit;cursor:pointer;border:0;color:inherit} .app{max-width:780px;margin:auto;padding:16px 16px 36px}
 header{display:flex;align-items:center;justify-content:space-between;padding:8px 2px 15px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px}.logo{width:43px;height:43px;border-radius:15px;background:#fff;display:grid;place-items:center;font-size:25px;box-shadow:var(--shadow)}.score{background:#fff;border:1px solid var(--line);border-radius:99px;padding:9px 13px;font-weight:800;color:#8b6b34}
 .hero{background:linear-gradient(125deg,#ffcfb6,#ffe6a6 55%,#c9eee2);border-radius:28px;padding:22px 20px;position:relative;overflow:hidden;box-shadow:var(--shadow);min-height:150px}.hero h1{font-size:26px;line-height:1.25;margin:0 0 8px;font-weight:950}.hero p{margin:0;color:#665b68;font-size:14px;line-height:1.6}.hero .globe{position:absolute;right:14px;bottom:-7px;font-size:94px;filter:drop-shadow(0 7px 3px #80634b20)}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}.tab{padding:12px 6px;border-radius:15px;background:#ffffffb8;border:1px solid var(--line);font-weight:800;color:var(--muted)}.tab.active{background:#fff;border:2px solid var(--pink);color:#d75f7b;box-shadow:var(--shadow)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.tab{padding:12px 6px;border-radius:15px;background:#ffffffb8;border:1px solid var(--line);font-weight:800;color:var(--muted)}.tab.active{background:#fff;border:2px solid var(--pink);color:#d75f7b;box-shadow:var(--shadow)}
 .panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow);margin-top:12px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}.section-head h2{font-size:19px;margin:0}.pill{font-size:12px;background:#fff0f3;color:#cb6680;padding:7px 10px;border-radius:99px;font-weight:800}
 .question{font-size:21px;font-weight:900;text-align:center;margin:8px 0 14px}.flag-big{font-size:88px;text-align:center;line-height:1.3;margin:4px 0 14px;filter:drop-shadow(0 5px 3px #00000012)}
 .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.answer{background:#fff9f3;border:2px solid #f4e8dd;border-radius:17px;padding:14px 8px;min-height:68px;font-weight:900;font-size:16px;transition:.15s}.answer small{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:4px}.answer:active{transform:scale(.98)}.answer.correct{background:#e9faf1;border-color:#78cba4}.answer.wrong{background:#fff0f1;border-color:#f19aa8}.answer:disabled{cursor:default}.answer.flag-choice{min-height:112px;padding:10px 6px;font-size:58px;line-height:1.2;display:flex;align-items:center;justify-content:center}.answer.flag-choice small{display:none}.answer.correct{animation:pop .35s ease}.feedback.show{animation:pop .25s ease}@keyframes pop{0%{transform:scale(.96);opacity:.5}70%{transform:scale(1.025)}100%{transform:scale(1);opacity:1}}.quiz-tools{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}.tool-chip{border:1px solid var(--line);background:#fff8f2;border-radius:99px;padding:8px 11px;font-size:12px;font-weight:850}.tool-chip.active{background:#fff0f3;border-color:var(--pink);color:#c85e79}.mission{background:#f0fbf6;border:1px solid #d9f0e5;border-radius:14px;padding:11px 13px;margin-top:12px;font-size:13px;line-height:1.6}.challenge-result{text-align:center;padding:16px;background:#fff7e4;border-radius:16px;margin-top:12px}.stamp.locked{color:#c8bfca;background:#faf8f7}.country-item .emoji.locked{filter:grayscale(1);opacity:.45}
@@ -30,6 +30,18 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .country-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}.country-item{display:flex;align-items:center;gap:8px;background:#fff9f3;border-radius:13px;padding:10px;text-align:left;font-weight:800}.country-item .emoji{font-size:26px}.country-item small{display:block;color:var(--muted);font-weight:600;font-size:11px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.stat{background:#fff8ee;border:1px solid var(--line);border-radius:13px;padding:9px 3px;text-align:center}.stat b{display:block;font-size:17px}.stat small{font-size:10px;color:var(--muted)}.passport{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.stamp{background:#fff8ee;border:1px dashed #e8c9a9;border-radius:12px;padding:8px 2px;text-align:center;font-size:20px}.stamp small{display:block;font-size:9px;color:var(--muted)}.stamp.earned{background:#e9faf1;border:1px solid #a7dec2}.collection-progress{height:12px;background:#f1edf5;border-radius:99px;overflow:hidden;margin:8px 0 12px}.collection-progress>span{display:block;height:100%;background:linear-gradient(90deg,#ff9aaa,#9cddc8);border-radius:99px;transition:width .3s}.audio-toggle{background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 11px;font-size:12px;font-weight:850}.footer{text-align:center;color:#a49aaa;font-size:11px;padding:20px 5px 0;line-height:1.6}
 @media(min-width:600px){.app{padding:24px}.hero{padding:28px 30px}.hero h1{font-size:31px}.panel{padding:22px}.continents{grid-template-columns:repeat(3,1fr)}}
+
+.adventure-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.adventure-card{background:#fff8f1;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:left;min-height:90px}
+.adventure-card b{display:block;margin:5px 0}.adventure-card small{color:var(--muted)}
+.mascot-choice{font-size:27px;background:#fff8ee;border:2px solid var(--line);border-radius:15px;padding:9px}
+.mascot-choice.active{border-color:var(--pink);background:#fff0f3}
+.stage-row{display:flex;justify-content:space-between;align-items:center;padding:11px;background:#fff9f3;border-radius:14px;margin:7px 0;gap:8px}
+.achievement{display:flex;gap:10px;align-items:center;padding:10px;background:#fff9f3;border-radius:13px;margin:7px 0}
+.achievement small{display:block;color:var(--muted)}.achievement.locked{opacity:.45;filter:grayscale(1)}
+.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.memory-card{min-height:78px;border-radius:14px;background:#f2edff;border:2px solid #e3daf8;font-size:23px;font-weight:900}
+.memory-card.open,.memory-card.matched{background:#e9faf1;border-color:#9cddc8}
 </style>
 </head>
 <body>
@@ -39,7 +51,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 <nav class="tabs">
 <button class="tab active" data-tab="quiz">🚩 국기 퀴즈</button>
 <button class="tab" data-tab="map">🗺️ 세계 탐험</button>
-<button class="tab" data-tab="collection">📚 나라 도감</button>
+<button class="tab" data-tab="collection">📚 나라 도감</button><button class="tab" data-tab="adventure">🎒 모험 놀이터</button>
 </nav>
 <main id="content"></main>
 <div class="footer">🌱 하나씩 알아가면 어느새 세계 박사!<br>국가 정보는 어린이를 위한 간단한 학습용 요약이에요.</div>
@@ -99,8 +111,46 @@ function mapSvg(c){return `<div class="map-wrap"><h4>📍 세계 지도에서 �
 function showCountry(i){selectedCountry=i;let c=countries[i];$("#content").innerHTML=`<section class="panel"><div class="section-head"><h2>📖 나라 탐험 카드</h2><span class="pill">${i+1} / ${countries.length}</span></div><div class="country-title"><div class="flag">${c.flag}</div><div><h3>${c.ko}</h3><p>${c.en}</p></div></div><div class="info-grid"><div class="info"><b>🏛️ 수도 · Capital</b><span>${c.capital}</span></div><div class="info"><b>🌏 대륙 · Continent</b><span>${c.continent}</span></div><div class="info"><b>💬 언어 · Language</b><span>${c.language}</span></div><div class="info"><b>💰 화폐 · Currency</b><span>${c.currency}</span></div></div>${mapSvg(c)}<div class="fact"><b>✨ 재미있는 사실!</b>${c.fact}</div><div style="display:flex;gap:8px;margin-top:12px"><button class="primary" id="prev" style="margin:0;background:#c6b7f2;box-shadow:0 4px 0 #a99bdc">← 이전</button><button class="primary" id="nextc" style="margin:0">다음 나라 →</button></div><button class="primary" id="back" style="background:#8dcfba;box-shadow:0 4px 0 #70b49e">🚩 퀴즈로 돌아가기</button></section>`;$("#prev").onclick=()=>showCountry((i+countries.length-1)%countries.length);$("#nextc").onclick=()=>showCountry((i+1)%countries.length);$("#back").onclick=()=>{activeTab="quiz";pickQuestion()}}
 function renderMap(){activeTab="map";setTabs();$("#content").innerHTML=`<section class="panel"><div class="section-head"><h2>🗺️ 대륙을 골라 탐험해요</h2><span class="pill">6개 대륙</span></div><div class="continents">${continents.map((c,i)=>`<button class="continent" data-cont="${i}">${["🌏","🏰","🦁","🗽","🦜","🦘"][i]} ${c}<span>${countries.filter(x=>x.continent===c).length}개 나라 만나기</span></button>`).join("")}</div><div id="countryarea"></div></section>`;document.querySelectorAll(".continent").forEach(b=>b.onclick=()=>{selectedContinent=continents[+b.dataset.cont];let arr=countries.map((c,i)=>({...c,i})).filter(c=>c.continent===selectedContinent);$("#countryarea").innerHTML=`<h3 style="font-size:16px;margin:18px 0 8px">${selectedContinent} 나라들</h3><div class="country-list">${arr.map(c=>`<button class="country-item" data-country="${c.i}"><span class="emoji ${passport.includes(c.ko)?"":"locked"}">${passport.includes(c.ko)?c.flag:"❔"}</span><span>${c.ko}<small>${passport.includes(c.ko)?c.en:"아직 발견하지 못했어요"}</small></span></button>`).join("")}</div>`;document.querySelectorAll(".country-item").forEach(x=>x.onclick=()=>showCountry(+x.dataset.country))})}
 function renderCollection(){activeTab="collection";setTabs();$("#content").innerHTML=`<section class="panel"><div class="section-head"><h2>📚 나의 나라 도감 & 여권</h2><span class="pill">${countries.length}개 나라</span></div>${progressPanel()}<p style="font-size:13px;color:#877e91">여행 도장 ${passport.length}/${countries.length}개를 모았어요! (${Math.round(passport.length/countries.length*100)}%)</p><div class="collection-progress"><span style="width:${passport.length/countries.length*100}%"></span></div><div class="passport">${countries.map(c=>`<div class="stamp ${passport.includes(c.ko)?"earned":""}">${passport.includes(c.ko)?c.flag:"🔒"}<small>${c.ko}</small></div>`).join("")}</div><p style="font-size:13px;color:#877e91;margin-top:0">궁금한 나라를 눌러 자세한 정보를 읽어 보세요.</p><div class="country-list">${countries.map((c,i)=>`<button class="country-item" data-country="${i}"><span class="emoji">${c.flag}</span><span>${c.ko}<small>${c.en}</small></span></button>`).join("")}</div></section>`;document.querySelectorAll(".country-item").forEach(x=>x.onclick=()=>showCountry(+x.dataset.country))}
+
+let mascot=localStorage.getItem("littleWorldMascot")||"🐼";
+let memoryDeck=[],memoryOpen=[],memoryMatched=[];
+function renderAdventure(){
+ activeTab="adventure";setTabs();
+ const animals=["🐼","🐰","🦊","🐸","🐻","🐱"];
+ $("#content").innerHTML='<section class="panel"><h2>🎒 모험 놀이터</h2><div class="adventure-grid"><button class="adventure-card" id="mem">🃏<b>국기 기억력 게임</b><small>국기와 나라 이름 짝 맞추기</small></button><button class="adventure-card" id="stages">🚀<b>대륙별 여행</b><small>대륙별 나라 탐험</small></button><button class="adventure-card" id="awards">🏆<b>업적과 트로피</b><small>새로운 목표 달성</small></button><button class="adventure-card" id="stories">📚<b>나라 이야기</b><small>재미있는 나라 정보</small></button></div><h3>🐾 탐험대 친구</h3><div>'+animals.map(x=>'<button class="mascot-choice '+(x===mascot?'active':'')+'" data-mascot="'+x+'">'+x+'</button>').join("")+'</div><div class="fact">안녕! 나랑 함께 세계 곳곳을 탐험해 보자!</div></section>';
+ document.querySelectorAll("[data-mascot]").forEach(b=>b.onclick=()=>{mascot=b.dataset.mascot;localStorage.setItem("littleWorldMascot",mascot);renderAdventure()});
+ $("#mem").onclick=renderMemoryGame;$("#stages").onclick=renderStages;$("#awards").onclick=renderAwards;$("#stories").onclick=renderStories;
+}
+function renderMemoryGame(){
+ activeTab="adventure";setTabs();const chosen=shuffle(countries).slice(0,6);
+ memoryDeck=shuffle(chosen.flatMap((c,i)=>[{key:i,face:c.flag,label:"국기"},{key:i,face:c.ko,label:"나라"}]));memoryOpen=[];memoryMatched=[];
+ $("#content").innerHTML='<section class="panel"><h2>🃏 국기 짝 맞추기</h2><p>국기와 나라 이름이 맞는 카드 두 장을 찾아요!</p><div class="memory-grid">'+memoryDeck.map((c,i)=>'<button class="memory-card" data-card="'+i+'">❔<small>카드</small></button>').join("")+'</div><div class="fact" id="memMsg">카드를 두 장 골라 보세요.</div><button class="primary" id="memAgain">새 게임</button><button class="primary" id="memBack">돌아가기</button></section>';
+ document.querySelectorAll("[data-card]").forEach(b=>b.onclick=()=>flipMemory(+b.dataset.card));
+ $("#memAgain").onclick=renderMemoryGame;$("#memBack").onclick=renderAdventure;
+}
+function flipMemory(i){
+ if(memoryOpen.includes(i)||memoryMatched.includes(memoryDeck[i].key)||memoryOpen.length===2)return;
+ memoryOpen.push(i);const c=memoryDeck[i],el=document.querySelector('[data-card="'+i+'"]');el.classList.add("open");el.innerHTML=c.face+"<small>"+c.label+"</small>";
+ if(memoryOpen.length===2){const a=memoryOpen[0],b=memoryOpen[1];if(memoryDeck[a].key===memoryDeck[b].key){memoryMatched.push(memoryDeck[a].key);memoryOpen=[];document.querySelectorAll(".memory-card.open").forEach(x=>{x.classList.remove("open");x.classList.add("matched")});$("#memMsg").textContent="짝을 찾았어요! "+memoryMatched.length+"/6";if(memoryMatched.length===6){stars+=6;xp+=20;saveProgress();$("#stars").textContent=stars;$("#memMsg").textContent="🎉 모두 찾았어요! 별 6개를 받았어요!"}}else{setTimeout(()=>{[a,b].forEach(n=>{const x=document.querySelector('[data-card="'+n+'"]');if(x&&!x.classList.contains("matched")){x.classList.remove("open");x.innerHTML="❔<small>카드</small>"}});memoryOpen=[]},850)}}
+}
+function renderStages(){
+ activeTab="adventure";setTabs();
+ $("#content").innerHTML='<section class="panel"><h2>🚀 대륙별 여행 스테이지</h2>'+continents.map((c,i)=>{const a=countries.filter(x=>x.continent===c),d=a.filter(x=>passport.includes(x.ko)).length;return '<div class="stage-row"><span><b>'+["🌏","🏰","🦁","🗽","🦜","🦘"][i]+' '+c+'</b><small style="display:block">'+d+'/'+a.length+' 나라 발견</small></span><button data-stage="'+i+'">여행하기 ➜</button></div>'}).join("")+'<button class="primary" id="stageBack">돌아가기</button></section>';
+ document.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>{const c=continents[+b.dataset.stage];const arr=countries.map((x,i)=>({...x,i})).filter(x=>x.continent===c);$("#content").innerHTML='<section class="panel"><h2>'+c+'</h2><div class="country-list">'+arr.map(x=>'<button class="country-item" data-stage-country="'+x.i+'">'+x.flag+' '+x.ko+'</button>').join("")+'</div><button class="primary" id="stageBack">← 스테이지 목록</button></section>';document.querySelectorAll("[data-stage-country]").forEach(x=>x.onclick=()=>showCountry(+x.dataset.stageCountry));$("#stageBack").onclick=renderStages});
+ $("#stageBack").onclick=renderAdventure;
+}
+function renderAwards(){
+ activeTab="adventure";setTabs();const a=[["👣","첫 발걸음","나라 1곳 발견",passport.length>=1],["🧳","꼬마 여행가","나라 10곳 발견",passport.length>=10],["✈️","세계 일주 도전","나라 30곳 발견",passport.length>=30],["🎓","세계 박사","모든 나라 발견",passport.length>=countries.length],["⭐","별 수집가","별 50개 모으기",stars>=50],["🔥","끈기 탐험가","연속 정답 10회",bestStreak>=10]];
+ $("#content").innerHTML='<section class="panel"><h2>🏆 업적과 트로피</h2>'+a.map(x=>'<div class="achievement '+(x[3]?'':'locked')+'"><span>'+x[0]+'</span><span><b>'+x[1]+'</b><small>'+x[2]+' · '+(x[3]?'달성 완료':'도전 중')+'</small></span></div>').join("")+'<button class="primary" id="awardBack">돌아가기</button></section>';$("#awardBack").onclick=renderAdventure;
+}
+function renderStories(){
+ activeTab="adventure";setTabs();const a=shuffle(countries).slice(0,8);
+ $("#content").innerHTML='<section class="panel"><h2>📚 오늘의 나라 이야기</h2>'+a.map(c=>'<button class="stage-row" style="width:100%;text-align:left;border:0" data-story="'+countries.indexOf(c)+'"><span><b>'+c.flag+' '+c.ko+'</b><small style="display:block">'+c.fact+'</small></span>➜</button>').join("")+'<button class="primary" id="storyBack">돌아가기</button></section>';
+ document.querySelectorAll("[data-story]").forEach(b=>b.onclick=()=>showCountry(+b.dataset.story));$("#storyBack").onclick=renderAdventure;
+}
+
 function setTabs(){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab))}
-document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{if(b.dataset.tab==="quiz")pickQuestion();if(b.dataset.tab==="map")renderMap();if(b.dataset.tab==="collection")renderCollection()});
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{if(b.dataset.tab==="quiz")pickQuestion();if(b.dataset.tab==="map")renderMap();if(b.dataset.tab==="collection")renderCollection();if(b.dataset.tab==="adventure")renderAdventure()});
 loadProgress();pickQuestion();setSoundButton();$("#soundToggle").onclick=()=>{soundOn=!soundOn;try{localStorage.setItem("littleWorldSound",soundOn?"on":"off")}catch(e){}setSoundButton();if(soundOn)playTone("good")};
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 </script>
