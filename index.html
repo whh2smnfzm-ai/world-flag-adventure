@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#fff4e8">
 <meta name="description" content="국기를 맞히고 100개 나라를 탐험하는 어린이 세계 여행 게임">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -141,6 +141,15 @@ button{touch-action:manipulation}
  .question{margin:3px 0 5px}
  .answer.flag-choice{font-size:43px}
 }
+
+/* Quiz header makeover */
+body[data-screen="quiz"] .hero{position:relative;overflow:hidden;background:linear-gradient(112deg,#ffd6c2 0%,#ffe8a8 48%,#c9eee0 100%);border:1px solid rgba(255,255,255,.75);box-shadow:0 8px 22px rgba(111,91,118,.10)}
+body[data-screen="quiz"] .hero:before{content:"✦  ✧  ✦";position:absolute;right:14px;top:8px;color:rgba(255,255,255,.9);font-size:17px;letter-spacing:8px}
+body[data-screen="quiz"] .hero:after{content:"🧭";position:absolute;right:15px;bottom:3px;font-size:clamp(38px,11vw,56px);opacity:.92;filter:drop-shadow(0 4px 3px rgba(75,65,80,.12))}
+body[data-screen="quiz"] .hero h1{max-width:75%;font-weight:950;letter-spacing:-.6px}
+body[data-screen="quiz"] .hero p{max-width:72%;font-weight:650;color:#75677d}
+body[data-screen="quiz"] header{background:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:7px 9px;margin-bottom:7px}
+body[data-screen="quiz"] .tab.active{box-shadow:0 5px 13px rgba(238,117,151,.16);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -249,7 +258,7 @@ function renderStories(){
 }
 
 let adventureMusicOn=false,adventureMusicOsc=[];function toggleAdventureMusic(){if(adventureMusicOn){adventureMusicOsc.forEach(o=>{try{o.stop()}catch(e){}});adventureMusicOsc=[];adventureMusicOn=false}else{try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();[261.6,329.6,392].forEach((hz,i)=>{let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=i===0 ? 0.008 : 0.004;o.connect(g);g.connect(audioCtx.destination);o.start();adventureMusicOsc.push(o)});adventureMusicOn=true}catch(e){}}$("#musicToggle").textContent=adventureMusicOn?"🔇 배경음악 끄기":"🎵 배경음악 켜기"}
-function setTabs(){document.body.dataset.screen=activeTab;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab))}
+function setTabs(){document.body.dataset.screen=activeTab;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab));const h=document.querySelector(".hero h1"),p=document.querySelector(".hero p");if(h&&p){if(activeTab==="quiz"){h.textContent="반짝반짝 세계 퀴즈! ✨";p.textContent="오늘은 몇 개 나라를 발견할까요?";}else{h.textContent="안녕, 꼬마 탐험가! 🌍";p.innerHTML="국기를 맞히고, 새로운 나라를 만나고,<br>세계 곳곳으로 신나는 여행을 떠나요!";}}}
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{if(b.dataset.tab==="quiz")pickQuestion();if(b.dataset.tab==="map")renderMap();if(b.dataset.tab==="collection")renderCollection();if(b.dataset.tab==="adventure")renderAdventure()});
 loadProgress();pickQuestion();setSoundButton();$("#soundToggle").onclick=()=>{soundOn=!soundOn;try{localStorage.setItem("littleWorldSound",soundOn?"on":"off")}catch(e){}setSoundButton();if(soundOn)playTone("good")};
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
