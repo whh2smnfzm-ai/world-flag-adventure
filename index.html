@@ -292,6 +292,63 @@ body.auto-quiz-mode .auto-fact-dialog .auto-answer-fact{font-size:clamp(18px,2.8
 body.auto-quiz-mode .auto-fact-next{font-size:clamp(12px,1.8vw,16px);color:#887b91;margin-top:22px}
 @media(orientation:landscape){body.auto-quiz-mode .flag-big{font-size:clamp(75px,16vh,135px)!important}body.auto-quiz-mode .answers{height:46%!important;bottom:3vh!important}}
 
+
+/* Final auto-mode layout: reserve a real row for the flag; never overlap answers */
+body.auto-quiz-mode #content{
+ display:flex!important;align-items:stretch!important;justify-content:stretch!important;
+ width:100%!important;height:100dvh!important;padding:clamp(8px,1.5vw,18px)!important;overflow:hidden!important
+}
+body.auto-quiz-mode #content>.panel:first-child{
+ position:relative!important;display:flex!important;flex-direction:column!important;
+ justify-content:flex-start!important;align-items:stretch!important;gap:clamp(5px,1vh,11px)!important;
+ width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;
+ padding:clamp(10px,1.8vw,22px)!important;overflow:hidden!important
+}
+body.auto-quiz-mode #content>.panel:nth-of-type(n+2),
+body.auto-quiz-mode #content>.mission{display:none!important}
+body.auto-quiz-mode .section-head{order:0!important;flex:0 0 auto!important;margin:0!important}
+body.auto-quiz-mode .quiz-tools{order:1!important;flex:0 0 auto!important;margin:0!important;min-height:0!important}
+body.auto-quiz-mode .quiz-tools [data-level],
+body.auto-quiz-mode #challengeBtn,
+body.auto-quiz-mode #languageBtn{display:none!important}
+body.auto-quiz-mode #autoBtn{font-size:clamp(12px,1.5vw,17px)!important;padding:6px 14px!important;min-height:32px!important}
+body.auto-quiz-mode #autoStatus{order:2!important;flex:0 0 auto!important;margin:0!important;padding:6px 12px!important;font-size:clamp(13px,1.8vw,20px)!important}
+body.auto-quiz-mode .question{order:3!important;flex:0 0 auto!important;margin:0!important;text-align:center!important;font-size:clamp(19px,3vw,34px)!important;line-height:1.15!important}
+body.auto-quiz-mode .flag-big{
+ order:4!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ flex:1 1 0!important;min-height:0!important;width:100%!important;
+ font-size:clamp(76px,17vh,150px)!important;line-height:1!important;margin:0!important
+}
+body.auto-quiz-mode .answers{
+ order:5!important;position:static!important;left:auto!important;right:auto!important;bottom:auto!important;
+ flex:0 1 44%!important;min-height:145px!important;height:auto!important;width:100%!important;
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:repeat(2,minmax(0,1fr))!important;gap:clamp(7px,1.2vw,14px)!important
+}
+body.auto-quiz-mode .answer{height:auto!important;min-height:0!important;padding:6px!important;font-size:clamp(18px,2.8vw,32px)!important}
+body.auto-quiz-mode .answer small{font-size:clamp(11px,1.2vw,15px)!important}
+body.auto-quiz-mode .answer.flag-choice{font-size:clamp(58px,12vh,105px)!important}
+body.auto-quiz-mode .feedback,body.auto-quiz-mode #next{display:none!important}
+body.auto-quiz-mode .auto-fact-dialog{
+ width:min(680px,78vw)!important;max-height:68dvh!important;padding:clamp(18px,3vw,30px)!important;
+ border-radius:24px!important
+}
+body.auto-quiz-mode .auto-fact-confetti{font-size:clamp(20px,3vw,30px)!important;margin-bottom:6px!important}
+body.auto-quiz-mode .auto-fact-dialog .auto-answer-title{font-size:clamp(25px,4vw,42px)!important}
+body.auto-quiz-mode .auto-fact-dialog .auto-answer-fact{font-size:clamp(16px,2.2vw,23px)!important;line-height:1.35!important;margin-top:12px!important}
+body.auto-quiz-mode .auto-fact-next{margin-top:14px!important}
+@media(orientation:landscape){
+ body.auto-quiz-mode .answers{flex-basis:43%!important}
+ body.auto-quiz-mode .flag-big{font-size:clamp(72px,16vh,135px)!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+ body.auto-quiz-mode #content>.panel:first-child{gap:4px!important;padding:7px 12px!important}
+ body.auto-quiz-mode .question{font-size:clamp(17px,3.2vh,24px)!important}
+ body.auto-quiz-mode .flag-big{font-size:clamp(58px,13vh,88px)!important}
+ body.auto-quiz-mode .answers{min-height:110px!important;flex-basis:46%!important}
+ body.auto-quiz-mode .answer{font-size:clamp(16px,3vh,22px)!important}
+}
+
 </style>
 </head>
 <body>
@@ -356,7 +413,7 @@ function progressPanel(){return '<div class="stats"><div class="stat"><b>⭐ '+s
 const $=s=>document.querySelector(s);
 function pickQuestion(){if(!deck.length){deck=shuffle(quizCountries());if(deck.length>1&&deck[deck.length-1]===lastAsked){[deck[0],deck[deck.length-1]]=[deck[deck.length-1],deck[0]]}questionNumber=0}question=deck.pop();lastAsked=question;questionNumber++;let modes=difficulty==="easy"?["flag","country"]:difficulty==="hard"?["capital","continent","flag","country"]:["flag","country","capital","continent"];quizMode=modes[Math.floor(Math.random()*modes.length)];answered=false;renderQuiz()}
 function renderQuiz(){activeTab="quiz";setTabs();let pool=quizCountries();let options=quizMode==="continent"?shuffle(pool.filter(c=>c.continent!==question.continent).reduce((a,c)=>a.some(x=>x.continent===c.continent)?a:[...a,c],[])).slice(0,3):[];options=[question,...options];while(options.length<4){let c=pool[Math.floor(Math.random()*pool.length)];if(!options.includes(c)&&!(quizMode==="continent"&&options.some(x=>x.continent===c.continent)))options.push(c)}options.sort(()=>Math.random()-.5);
-$("#content").innerHTML=`<section class="panel"><div class="section-head"><h2>${tr("🚩 국기 이름 맞히기","🚩 Flag Quiz")}</h2><span class="pill">${tr("나라","countries")} ${quizCountries().length} · ${questionNumber}/${quizCountries().length}</span></div><div class="quiz-tools"><button class="tool-chip ${difficulty==="easy"?"active":""}" data-level="easy">🌱 ${tr("쉬움 20개","Easy · 20")}</button><button class="tool-chip ${difficulty==="normal"?"active":""}" data-level="normal">🌼 ${tr("보통 50개","Normal · 50")}</button><button class="tool-chip ${difficulty==="hard"?"active":""}" data-level="hard">🚀 ${tr("어려움 100개","Hard · 100")}</button><button class="tool-chip ${challengeActive?"active":""}" id="challengeBtn">🏆 ${tr("10문제 도전","10-question challenge")}</button><button class="tool-chip ${autoMode?"active":""}" id="autoBtn">${autoMode?"🛑 "+tr("오토 멈춤","STOP AUTO"):"🤖 "+tr("오토 모드","AUTO MODE")}</button><button class="tool-chip" id="languageBtn">🌐 ${quizLanguage==="ko"?"한국어":"English"}</button></div><div id="autoStatus" class="mission" style="display:${autoMode?"block":"none"};text-align:center;font-weight:900">⏳ ${tr("10초 후 정답 공개","Answer in 10 seconds")}</div><div class="question">${quizMode==="flag"?tr("이 국기는 어느 나라일까요?","Which country does this flag belong to?"):quizMode==="country"?tr(question.ko+"의 국기를 골라 보세요!","Choose the flag of "+question.en+"!"):quizMode==="capital"?tr(question.ko+"의 수도는 어디일까요?","What is the capital of "+question.en+"?"):tr(question.ko+"는 어느 대륙에 있을까요?","Which continent is "+question.en+" in?")}</div>${quizMode==="flag"?`<div class="flag-big">${question.flag}</div>`:""}<div class="answers">${options.map(c=>`<button class="answer ${quizMode==="country"?"flag-choice":""}" data-id="${countries.indexOf(c)}">${quizMode==="capital"?c.capital:quizMode==="continent"?c.continent:quizMode==="country"?c.flag:c.ko}${quizMode==="country"?"":`<small>${quizMode==="capital"?c.ko:quizMode==="continent"?"대륙 선택":c.en}</small>`}</button>`).join("")}</div><div class="feedback" id="feedback"></div><button class="primary" id="next" style="display:none">다음 문제 ➜</button></section><section class="panel">${progressPanel()}<div class="section-head"><h2>🧠 오답 복습 · ${wrongCountries.length}개</h2></div><p style="font-size:13px;color:#877e91">${wrongCountries.length?wrongCountries.join(" · "):"아직 오답이 없어요!"}</p><div class="section-head"><h2>💡 탐험 팁</h2></div><p style="margin:0;color:#81788c;font-size:14px;line-height:1.7">정답을 맞히면 별을 얻고, 그 나라의 수도와 대륙, 재미있는 이야기를 배울 수 있어요!</p></section>`;
+$("#content").innerHTML=`<section class="panel"><div class="section-head"><h2>${tr("🚩 국기 이름 맞히기","🚩 Flag Quiz")}</h2><span class="pill">${tr("나라","countries")} ${quizCountries().length} · ${questionNumber}/${quizCountries().length}</span></div><div class="quiz-tools"><button class="tool-chip ${difficulty==="easy"?"active":""}" data-level="easy">🌱 ${tr("쉬움 20개","Easy · 20")}</button><button class="tool-chip ${difficulty==="normal"?"active":""}" data-level="normal">🌼 ${tr("보통 50개","Normal · 50")}</button><button class="tool-chip ${difficulty==="hard"?"active":""}" data-level="hard">🚀 ${tr("어려움 100개","Hard · 100")}</button><button class="tool-chip ${challengeActive?"active":""}" id="challengeBtn">🏆 ${tr("10문제 도전","10-question challenge")}</button><button class="tool-chip ${autoMode?"active":""}" id="autoBtn">${autoMode?"🛑 "+tr("오토 멈춤","STOP AUTO"):"🤖 "+tr("오토 모드","AUTO MODE")}</button><button class="tool-chip" id="languageBtn">🌐 ${quizLanguage==="ko"?"한국어":"English"}</button></div><div id="autoStatus" class="mission" style="display:${autoMode?"block":"none"};text-align:center;font-weight:900">⏳ ${tr("10초 후 정답 공개","Answer in 10 seconds")}</div><div class="question">${quizMode==="flag"?tr("이 국기는 어느 나라일까요?","Which country does this flag belong to?"):quizMode==="country"?tr(question.ko+"의 국기를 골라 보세요!","Choose the flag of "+question.en+"!"):quizMode==="capital"?tr(question.ko+"의 수도는 어디일까요?","What is the capital of "+question.en+"?"):tr(question.ko+"는 어느 대륙에 있을까요?","Which continent is "+question.en+" in?")}</div>${quizMode==="flag"?`<div class="flag-big">${question.flag}</div>`:""}<div class="answers">${options.map(c=>`<button class="answer ${quizMode==="country"?"flag-choice":""}" data-id="${countries.indexOf(c)}">${quizMode==="capital"?(quizLanguage==="en"?c.capital.split(" / ").pop():c.capital.split(" / ")[0]):quizMode==="continent"?(quizLanguage==="en"?c.continent.split(" / ").pop():c.continent.split(" / ")[0]):quizMode==="country"?c.flag:(quizLanguage==="en"?c.en:c.ko)}${quizMode==="country"||quizLanguage==="en"?"":`<small>${quizMode==="capital"?c.en:quizMode==="continent"?"대륙":c.en}</small>`}</button>`).join("")}</div><div class="feedback" id="feedback"></div><button class="primary" id="next" style="display:none">다음 문제 ➜</button></section><section class="panel">${progressPanel()}<div class="section-head"><h2>🧠 오답 복습 · ${wrongCountries.length}개</h2></div><p style="font-size:13px;color:#877e91">${wrongCountries.length?wrongCountries.join(" · "):"아직 오답이 없어요!"}</p><div class="section-head"><h2>💡 탐험 팁</h2></div><p style="margin:0;color:#81788c;font-size:14px;line-height:1.7">정답을 맞히면 별을 얻고, 그 나라의 수도와 대륙, 재미있는 이야기를 배울 수 있어요!</p></section>`;
 document.querySelectorAll(".answer").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.id)));
 $("#languageBtn").onclick=()=>{quizLanguage=quizLanguage==="ko"?"en":"ko";try{localStorage.setItem("littleWorldLanguage",quizLanguage)}catch(e){}renderQuiz()};$("#next").onclick=()=>{if(challengeActive&&challengeCount>=10){challengeActive=false;pickQuestion();return}pickQuestion()};document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{stopAutoMode(false);difficulty=b.dataset.level;try{localStorage.setItem("littleWorldDifficulty",difficulty)}catch(e){}challengeActive=false;deck=[];pickQuestion()});$("#challengeBtn").onclick=()=>{stopAutoMode(false);challengeActive=true;challengeCount=0;challengeCorrect=0;deck=[];pickQuestion()};$("#autoBtn").onclick=()=>{if(autoMode){stopAutoMode(true)}else{autoMode=true;enterAutoPresentation();renderQuiz();startAutoCountdown()}};if(autoMode)startAutoCountdown();$("#content").insertAdjacentHTML("beforeend",`<div class="mission">🎯 오늘의 미션: 정답 5개 맞히기 · ${daily.count}/5 완료</div>`)}
 async function requestAutoWakeLock(){if(!autoMode||!("wakeLock" in navigator))return;try{if(wakeLock)await wakeLock.release();wakeLock=await navigator.wakeLock.request("screen");wakeLock.addEventListener("release",()=>{wakeLock=null})}catch(e){wakeLock=null}}
