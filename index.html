@@ -349,6 +349,66 @@ body.auto-quiz-mode .auto-fact-next{margin-top:14px!important}
  body.auto-quiz-mode .answer{font-size:clamp(16px,3vh,22px)!important}
 }
 
+
+/* v23: viewing-only auto quiz, compact build label and spacious landscape layout */
+body.auto-quiz-mode:after{
+ content:"v23";position:fixed;z-index:21000;top:5px;left:8px;
+ font:600 10px/1.2 system-ui,sans-serif;color:#8b8292;opacity:.72;
+ pointer-events:none;letter-spacing:.3px
+}
+body.auto-quiz-mode #content{display:flex!important;height:100dvh!important;padding:clamp(6px,1vw,12px)!important;overflow:hidden!important}
+body.auto-quiz-mode #content>.panel:first-child{
+ display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;
+ position:relative!important;height:100%!important;min-height:0!important;width:100%!important;
+ padding:clamp(8px,1.2vw,16px)!important;gap:clamp(4px,.7vh,8px)!important;overflow:hidden!important
+}
+body.auto-quiz-mode #content>.panel:nth-of-type(n+2),body.auto-quiz-mode #content>.mission{display:none!important}
+body.auto-quiz-mode .section-head{order:0!important;flex:0 0 auto!important;margin:0!important}
+body.auto-quiz-mode .quiz-tools{order:1!important;flex:0 0 auto!important;margin:0!important}
+body.auto-quiz-mode .quiz-tools [data-level],body.auto-quiz-mode #challengeBtn,body.auto-quiz-mode #languageBtn{display:none!important}
+body.auto-quiz-mode #autoBtn{font-size:clamp(12px,1.4vw,16px)!important;padding:5px 12px!important;min-height:29px!important}
+body.auto-quiz-mode #autoStatus{order:2!important;flex:0 0 auto!important;margin:0!important;padding:4px 10px!important;font-size:clamp(12px,1.5vw,18px)!important}
+body.auto-quiz-mode .question{order:3!important;flex:0 0 auto!important;text-align:center!important;margin:0!important;padding-top:0!important;font-size:clamp(20px,3vw,36px)!important;line-height:1.12!important}
+body.auto-quiz-mode .flag-big{
+ order:4!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ flex:1 1 0!important;min-height:0!important;width:100%!important;margin:0!important;padding:0!important;
+ font-size:clamp(120px,29vh,260px)!important;line-height:1!important
+}
+body.auto-quiz-mode .answers{
+ order:5!important;position:static!important;left:auto!important;right:auto!important;bottom:auto!important;
+ flex:0 0 50%!important;min-height:0!important;height:50%!important;width:100%!important;
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:repeat(2,minmax(0,1fr))!important;gap:clamp(8px,1.2vw,16px)!important
+}
+body.auto-quiz-mode .answer{
+ height:100%!important;min-height:0!important;padding:clamp(8px,1.2vw,16px)!important;
+ font-size:clamp(25px,4.2vw,48px)!important;line-height:1.12!important;pointer-events:none!important;cursor:default!important
+}
+body.auto-quiz-mode .answer small{font-size:clamp(14px,1.8vw,21px)!important}
+body.auto-quiz-mode .answer.flag-choice{font-size:clamp(100px,23vh,190px)!important}
+body.auto-quiz-mode .feedback,body.auto-quiz-mode #next{display:none!important}
+body.auto-quiz-mode .auto-fact-dialog{
+ width:min(720px,82vw)!important;max-height:72dvh!important;padding:clamp(16px,2.5vw,28px)!important
+}
+body.auto-quiz-mode .auto-fact-dialog .auto-answer-title{font-size:clamp(26px,4vw,44px)!important}
+body.auto-quiz-mode .auto-fact-dialog .auto-answer-fact{font-size:clamp(16px,2.1vw,23px)!important;line-height:1.4!important;margin-top:10px!important}
+body.auto-quiz-mode .auto-fact-dialog .auto-answer-capital{font-size:clamp(17px,2.4vw,26px)!important;font-weight:850;line-height:1.35;margin-top:12px}
+@media(orientation:landscape){
+ body.auto-quiz-mode .question{font-size:clamp(21px,3.4vw,39px)!important}
+ body.auto-quiz-mode .flag-big{font-size:clamp(130px,31vh,280px)!important}
+ body.auto-quiz-mode .answers{flex-basis:50%!important;height:50%!important}
+ body.auto-quiz-mode .answer{font-size:clamp(28px,4.6vw,54px)!important}
+ body.auto-quiz-mode .answer.flag-choice{font-size:clamp(110px,25vh,205px)!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+ body.auto-quiz-mode #content>.panel:first-child{gap:3px!important;padding:5px 10px!important}
+ body.auto-quiz-mode .question{font-size:clamp(17px,3.8vh,25px)!important}
+ body.auto-quiz-mode .flag-big{font-size:clamp(100px,23vh,150px)!important}
+ body.auto-quiz-mode .answers{flex-basis:50%!important;height:50%!important;gap:6px!important}
+ body.auto-quiz-mode .answer{font-size:clamp(21px,4.4vh,30px)!important}
+ body.auto-quiz-mode .answer.flag-choice{font-size:clamp(75px,18vh,115px)!important}
+}
+
 </style>
 </head>
 <body>
@@ -423,7 +483,7 @@ async function enterAutoPresentation(){document.body.classList.add("auto-quiz-mo
 function leaveAutoPresentation(){document.body.classList.remove("auto-quiz-mode");releaseAutoWakeLock();try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen()}catch(e){}}
 function stopAutoMode(refresh=true){autoMode=false;leaveAutoPresentation();if(autoTimer){clearTimeout(autoTimer);autoTimer=null}if(autoInterval){clearInterval(autoInterval);autoInterval=null}if(refresh&&activeTab==="quiz"&&question)renderQuiz()}
 function startAutoCountdown(){if(!autoMode||answered)return;if(autoTimer){clearTimeout(autoTimer);autoTimer=null}if(autoInterval){clearInterval(autoInterval);autoInterval=null}autoSeconds=10;const status=$("#autoStatus");if(status){status.style.display="block";status.textContent="⏳ 10초 후 정답 공개 · 10"}autoInterval=setInterval(()=>{if(!autoMode||answered){clearInterval(autoInterval);autoInterval=null;return}autoSeconds--;const s=$("#autoStatus");if(s)s.textContent=autoSeconds>0?(quizLanguage==="en"?"⏳ Answer in "+autoSeconds+"s":"⏳ "+autoSeconds+"초 후 정답 공개"):(quizLanguage==="en"?"✨ Answer!":"✨ 정답 공개!");if(autoSeconds<=0){clearInterval(autoInterval);autoInterval=null;autoTimer=setTimeout(()=>{if(autoMode&&!answered)choose(countries.indexOf(question))},180)}},1000)}
-function choose(id){if(answered)return;answered=true;if(autoMode){document.querySelectorAll(".answer").forEach(b=>{b.disabled=true;let n=+b.dataset.id;if(quizMode==="continent"?countries[n].continent===question.continent:n===countries.indexOf(question))b.classList.add("correct")});const fact=randomCountryFact(question);const modal=document.createElement("div");modal.className="auto-fact-modal";modal.innerHTML=`<div class="auto-fact-dialog"><div class="auto-fact-confetti">✨ 🌍 ⭐</div><div class="auto-answer-title">${question.flag} ${quizLanguage==="en"?question.en:question.ko}</div><div class="auto-answer-fact">${fact}</div><div class="auto-fact-next">${quizLanguage==="en"?"Next country in a moment":"잠시 후 다음 나라가 나와요"}</div></div>`;document.body.appendChild(modal);const status=$("#autoStatus");if(status)status.textContent=quizLanguage==="en"?"Answer revealed":"정답 공개";autoTimer=setTimeout(()=>{modal.remove();if(autoMode)pickQuestion()},4200);return}let previousLevel=Math.floor(xp/50)+1;let correct=quizMode==="continent"?countries[id].continent===question.continent:id===countries.indexOf(question);if(correct){stars++;xp+=10;streak++;bestStreak=Math.max(bestStreak,streak);daily.count++;saveDaily();if(challengeActive)challengeCorrect++;if(!passport.includes(question.ko))passport.push(question.ko)}else{streak=0;if(!wrongCountries.includes(question.ko))wrongCountries.push(question.ko)}if(challengeActive)challengeCount++;saveProgress();playTone(correct?"good":"bad");if(correct&&!autoMode)showCelebration();$("#stars").textContent=stars;document.querySelectorAll(".answer").forEach(b=>{b.disabled=true;let n=+b.dataset.id;if(quizMode==="continent"?countries[n].continent===question.continent:n===countries.indexOf(question))b.classList.add("correct");else if(n===id)b.classList.add("wrong")});
+function choose(id){if(answered)return;answered=true;if(autoMode){document.querySelectorAll(".answer").forEach(b=>{b.disabled=true;let n=+b.dataset.id;if(quizMode==="continent"?countries[n].continent===question.continent:n===countries.indexOf(question))b.classList.add("correct")});const fact=randomCountryFact(question);const capital=quizLanguage==="en"?question.capital.split(" / ").pop():question.capital.split(" / ")[0];const capitalLabel=quizLanguage==="en"?"Capital City:":"수도:";const modal=document.createElement("div");modal.className="auto-fact-modal";modal.innerHTML=`<div class="auto-fact-dialog"><div class="auto-fact-confetti">✨ 🌍 ⭐</div><div class="auto-answer-title">${question.flag} ${quizLanguage==="en"?question.en:question.ko}</div><div class="auto-answer-fact">${fact}</div><div class="auto-answer-capital">${capitalLabel}<br>${capital}</div><div class="auto-fact-next">${quizLanguage==="en"?"Next country in a moment":"잠시 후 다음 나라가 나와요"}</div></div>`;document.body.appendChild(modal);const status=$("#autoStatus");if(status)status.textContent=quizLanguage==="en"?"Answer revealed":"정답 공개";autoTimer=setTimeout(()=>{modal.remove();if(autoMode)pickQuestion()},4200);return}let previousLevel=Math.floor(xp/50)+1;let correct=quizMode==="continent"?countries[id].continent===question.continent:id===countries.indexOf(question);if(correct){stars++;xp+=10;streak++;bestStreak=Math.max(bestStreak,streak);daily.count++;saveDaily();if(challengeActive)challengeCorrect++;if(!passport.includes(question.ko))passport.push(question.ko)}else{streak=0;if(!wrongCountries.includes(question.ko))wrongCountries.push(question.ko)}if(challengeActive)challengeCount++;saveProgress();playTone(correct?"good":"bad");if(correct&&!autoMode)showCelebration();$("#stars").textContent=stars;document.querySelectorAll(".answer").forEach(b=>{b.disabled=true;let n=+b.dataset.id;if(quizMode==="continent"?countries[n].continent===question.continent:n===countries.indexOf(question))b.classList.add("correct");else if(n===id)b.classList.add("wrong")});
 let f=$("#feedback");f.className="feedback show";let currentLevel=Math.floor(xp/50)+1;let levelMessage=currentLevel>previousLevel?`<br><br>🎊 레벨 업! 이제 ${currentLevel}레벨 탐험가예요!`: "";if(currentLevel>previousLevel)f.classList.add("level-up");f.innerHTML=correct?`🎉 정답! 별 1개와 경험치 10 XP를 얻었어요!<br>🔥 연속 정답 ${streak}회 · ${question.ko} (${question.en})${levelMessage}`:`괜찮아요! 😊 정답은 ${question.ko} (${question.en})예요. 오답 복습 목록에 저장했어요.`;$("#next").style.display="block";if(challengeActive&&challengeCount>=10){$("#next").textContent="결과 보기 🏆";f.insertAdjacentHTML("afterend",`<div class="challenge-result">🏆 10문제 도전 완료!<br><b>${challengeCorrect}/10 정답</b><br>멋진 탐험이었어요!</div>`)}
 if(autoMode){autoTimer=setTimeout(()=>{if(autoMode){pickQuestion()}},2800)}let extra=document.createElement("button");extra.className="primary";extra.style.background="linear-gradient(110deg,#a99be9,#8ecfc0)";extra.style.boxShadow="0 5px 0 #8b9fc8";extra.textContent="🌍 이 나라 자세히 알아보기";extra.onclick=()=>showCountry(countries.indexOf(question));$("#next").after(extra)}
 function mapSvg(c){return `<div class="map-wrap"><h4>📍 세계 지도에서 위치 찾아보기</h4><svg viewBox="0 0 600 300" role="img" aria-label="세계 지도와 나라의 대략적인 위치"><rect width="600" height="300" rx="14" fill="#e4f3f3"/><g fill="#b8dfc9" stroke="#94c9b2" stroke-width="2"><path d="M48 63 L80 35 145 32 175 58 160 91 130 108 116 143 91 128 77 102 50 95Z"/><path d="M150 147 L180 154 195 190 183 235 164 273 148 236 139 195Z"/><path d="M267 64 L300 47 337 53 353 77 334 94 300 92 282 112 263 94Z"/><path d="M292 111 L339 108 359 151 344 207 316 246 289 201 278 153Z"/><path d="M344 53 L400 34 487 46 535 83 506 117 462 112 432 138 393 119 365 91Z"/><path d="M463 199 L514 190 548 219 529 248 487 251 457 228Z"/><path d="M522 265 L553 260 568 276 546 286Z"/></g><g fill="#7ba994" font-size="12" font-weight="700"><text x="92" y="82">북아메리카</text><text x="158" y="207">남아메리카</text><text x="293" y="76">유럽</text><text x="310" y="164">아프리카</text><text x="423" y="77">아시아</text><text x="492" y="220">오세아니아</text></g><circle cx="${c.x*6}" cy="${c.y*3}" r="13" fill="#ff718e" stroke="white" stroke-width="4"/><circle cx="${c.x*6}" cy="${c.y*3}" r="22" fill="none" stroke="#ff718e" stroke-width="2" opacity=".5"/></svg><p class="map-note">분홍색 점은 ${c.ko}의 대략적인 위치예요.</p></div>`}
